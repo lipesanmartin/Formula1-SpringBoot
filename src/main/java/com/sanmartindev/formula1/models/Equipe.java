@@ -1,45 +1,39 @@
 package com.sanmartindev.formula1.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "equipe")
-public class Equipe {
+public class Equipe implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "equipe_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_equipe")
+    private Long idEquipe;
     private String nome;
     private String nacionalidade;
-    @Column(name = "chefe_equipe")
-    private String chefeEquipe;
+    private String chefe;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "piloto_id")
-    private List<Piloto> pilotos = new ArrayList<>();
 
     public Equipe() {
     }
 
-    public Equipe(Long id, String nome, String nacionalidade, String chefeEquipe) {
-        this.id = id;
+    public Equipe(Long idEquipe, String nome, String nacionalidade, String chefe) {
+        this.idEquipe = idEquipe;
         this.nome = nome;
         this.nacionalidade = nacionalidade;
-        this.chefeEquipe = chefeEquipe;
+        this.chefe = chefe;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdEquipe() {
+        return idEquipe;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdEquipe(Long idEquipe) {
+        this.idEquipe = idEquipe;
     }
 
     public String getNome() {
@@ -58,16 +52,12 @@ public class Equipe {
         this.nacionalidade = nacionalidade;
     }
 
-    public String getChefeEquipe() {
-        return chefeEquipe;
+    public String getChefe() {
+        return chefe;
     }
 
-    public void setChefeEquipe(String chefeEquipe) {
-        this.chefeEquipe = chefeEquipe;
-    }
-
-    public List<Piloto> getPilotos() {
-        return pilotos;
+    public void setChefe(String chefe) {
+        this.chefe = chefe;
     }
 
     @Override
@@ -75,11 +65,21 @@ public class Equipe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipe equipe = (Equipe) o;
-        return Objects.equals(id, equipe.id);
+        return Objects.equals(idEquipe, equipe.idEquipe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(idEquipe);
+    }
+
+    @Override
+    public String toString() {
+        return "Equipe{" +
+                "idEquipe=" + idEquipe +
+                ", nome='" + nome + '\'' +
+                ", nacionalidade='" + nacionalidade + '\'' +
+                ", chefe='" + chefe + '\'' +
+                '}';
     }
 }

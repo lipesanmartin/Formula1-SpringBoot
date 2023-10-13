@@ -1,46 +1,44 @@
 package com.sanmartindev.formula1.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "piloto")
-public class Piloto {
+public class Piloto implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "piloto_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
     private String nacionalidade;
+    @Column(name = "numero_carro", unique = true)
     private Integer numCarro;
 
-    @ManyToOne
-    @JoinColumn(name = "equipe_id")
-    private Equipe equipe;
+    @JoinColumn(name = "id_equipe")
+    private Long idEquipe;
 
 
     public Piloto() {
     }
 
-    public Piloto(Long idPiloto, String nome, String nacionalidade, Integer numCarro) {
-        this.id = idPiloto;
+    public Piloto(Long id, String nome, String nacionalidade, Integer numCarro) {
+        this.id = id;
         this.nome = nome;
         this.nacionalidade = nacionalidade;
         this.numCarro = numCarro;
     }
 
+
     public Long getId() {
         return id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     public String getNome() {
         return nome;
@@ -66,12 +64,12 @@ public class Piloto {
         this.numCarro = numCarro;
     }
 
-    public Equipe getEquipe() {
-        return equipe;
+    public Long getIdEquipe() {
+        return idEquipe;
     }
 
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
+    public void setIdEquipe(Long idEquipe) {
+        this.idEquipe = idEquipe;
     }
 
 
