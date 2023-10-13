@@ -1,4 +1,4 @@
-package com.sanmartindev.formula1.config.resources;
+package com.sanmartindev.formula1.resources;
 
 import com.sanmartindev.formula1.models.Equipe;
 import com.sanmartindev.formula1.services.EquipeService;
