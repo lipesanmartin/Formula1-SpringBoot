@@ -1,8 +1,11 @@
 package com.sanmartindev.formula1.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +20,10 @@ public class Equipe implements Serializable {
     private String nacionalidade;
     private String chefe;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "equipe")
+    private List<Piloto> pilotos = new ArrayList<>();
+
 
     public Equipe() {
     }
@@ -28,12 +35,8 @@ public class Equipe implements Serializable {
         this.chefe = chefe;
     }
 
-    public Long getIdEquipe() {
+    public Long getId() {
         return idEquipe;
-    }
-
-    public void setIdEquipe(Long idEquipe) {
-        this.idEquipe = idEquipe;
     }
 
     public String getNome() {
@@ -58,6 +61,14 @@ public class Equipe implements Serializable {
 
     public void setChefe(String chefe) {
         this.chefe = chefe;
+    }
+
+    public List<Piloto> getPilotos() {
+        return pilotos;
+    }
+
+    public void addPilotos(Piloto piloto) {
+        pilotos.add(piloto);
     }
 
     @Override

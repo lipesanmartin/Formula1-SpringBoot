@@ -14,7 +14,6 @@ public class EquipeResource {
 
     private final EquipeService service;
 
-
     @Autowired
     public EquipeResource(EquipeService service) {
         this.service = service;
@@ -33,19 +32,19 @@ public class EquipeResource {
     }
 
     @PostMapping
-    public ResponseEntity<Equipe> criarEquipe(@RequestBody Equipe equipe) {
-        Equipe equipeCriada = service.criarEquipe(equipe);
+    public ResponseEntity<Equipe> create(@RequestBody Equipe equipe) {
+        Equipe equipeCriada = service.create(equipe);
         return ResponseEntity.ok().body(equipeCriada);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Equipe> atualizarEquipe(@PathVariable Long id, @RequestBody Equipe equipe) {
-        equipe = service.atualizarEquipe(id, equipe);
+    public ResponseEntity<Equipe> update(@PathVariable Long id, @RequestBody Equipe equipe) {
+        equipe = service.update(id, equipe);
         return ResponseEntity.ok().body(equipe);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletarEquipe(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

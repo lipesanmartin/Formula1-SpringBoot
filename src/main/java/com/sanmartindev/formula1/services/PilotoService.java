@@ -1,10 +1,9 @@
 package com.sanmartindev.formula1.services;
 
-import com.sanmartindev.formula1.models.Equipe;
-import com.sanmartindev.formula1.repositories.EquipeRepository;
+import com.sanmartindev.formula1.models.Piloto;
+import com.sanmartindev.formula1.repositories.PilotoRepository;
 import com.sanmartindev.formula1.services.exceptions.DatabaseException;
 import com.sanmartindev.formula1.services.exceptions.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,41 +13,36 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EquipeService {
+public class PilotoService {
 
-    private final EquipeRepository repo;
+    public final PilotoRepository repo;
 
     @Autowired
-    public EquipeService(EquipeRepository repo) {
+    public PilotoService(PilotoRepository repo) {
         this.repo = repo;
     }
 
-    public List<Equipe> findAll() {
+    public List<Piloto> findAll() {
         return repo.findAll();
     }
 
-    public Equipe findById(Long id) {
-        return repo.findById(id).orElseThrow(() -> new RuntimeException("Equipe não encontrada"));
+    public Piloto findById(Long id) {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Piloto não encontrado"));
     }
 
-    public Equipe create(Equipe equipe) {
-        return repo.save(equipe);
+    public Piloto create(Piloto piloto) {
+        return repo.save(piloto);
     }
 
     @Transactional
-    public Equipe update(Long id, Equipe obj) {
-        try {
-            Equipe entity = repo.getReferenceById(id);
-            entity.setNome(obj.getNome());
-            entity.setNacionalidade(obj.getNacionalidade());
-            entity.setChefe(obj.getChefe());
-            return repo.save(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
-        }
-
+    public Piloto update(Long id, Piloto obj) {
+        Piloto entity = repo.getReferenceById(id);
+        entity.setNome(obj.getNome());
+        entity.setNacionalidade(obj.getNacionalidade());
+        entity.setNumCarro(obj.getNumCarro());
+        entity.setEquipe(obj.getEquipe());
+        return repo.save(entity);
     }
-
 
     public void delete(Long id) {
         try {

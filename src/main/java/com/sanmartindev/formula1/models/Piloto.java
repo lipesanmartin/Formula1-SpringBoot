@@ -15,14 +15,16 @@ public class Piloto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_piloto")
     private Long id;
     private String nome;
     private String nacionalidade;
     @Column(name = "numero_carro", unique = true)
     private Integer numCarro;
 
+    @ManyToOne
     @JoinColumn(name = "id_equipe")
-    private Long idEquipe;
+    private Equipe equipe;
 
 
     public Piloto() {
@@ -64,12 +66,12 @@ public class Piloto implements Serializable {
         this.numCarro = numCarro;
     }
 
-    public Long getIdEquipe() {
-        return idEquipe;
+    public Equipe getEquipe() {
+        return equipe;
     }
 
-    public void setIdEquipe(Long idEquipe) {
-        this.idEquipe = idEquipe;
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
     }
 
 
