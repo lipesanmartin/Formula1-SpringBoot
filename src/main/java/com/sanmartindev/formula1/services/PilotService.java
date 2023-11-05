@@ -1,7 +1,7 @@
 package com.sanmartindev.formula1.services;
 
-import com.sanmartindev.formula1.models.Piloto;
-import com.sanmartindev.formula1.repositories.PilotoRepository;
+import com.sanmartindev.formula1.models.Pilot;
+import com.sanmartindev.formula1.repositories.PilotRepository;
 import com.sanmartindev.formula1.services.exceptions.DatabaseException;
 import com.sanmartindev.formula1.services.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
@@ -13,34 +13,34 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PilotoService {
+public class PilotService {
 
-    public final PilotoRepository repo;
+    public final PilotRepository repo;
 
     @Autowired
-    public PilotoService(PilotoRepository repo) {
+    public PilotService(PilotRepository repo) {
         this.repo = repo;
     }
 
-    public List<Piloto> findAll() {
+    public List<Pilot> findAll() {
         return repo.findAll();
     }
 
-    public Piloto findById(Long id) {
+    public Pilot findById(Long id) {
         return repo.findById(id).orElseThrow(() -> new RuntimeException("Piloto não encontrado"));
     }
 
-    public Piloto create(Piloto piloto) {
-        return repo.save(piloto);
+    public Pilot create(Pilot pilot) {
+        return repo.save(pilot);
     }
 
     @Transactional
-    public Piloto update(Long id, Piloto obj) {
-        Piloto entity = repo.getReferenceById(id);
-        entity.setNome(obj.getNome());
-        entity.setNacionalidade(obj.getNacionalidade());
-        entity.setNumCarro(obj.getNumCarro());
-        entity.setEquipe(obj.getEquipe());
+    public Pilot update(Long id, Pilot obj) {
+        Pilot entity = repo.getReferenceById(id);
+        entity.setName(obj.getName());
+        entity.setNationality(obj.getNationality());
+        entity.setCarNumber(obj.getCarNumber());
+        entity.setTeam(obj.getTeam());
         return repo.save(entity);
     }
 
